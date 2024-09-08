@@ -5,12 +5,12 @@ class BookController {
     try {
       const book = req.body;
       const lastBookId = BOOKS[BOOKS.length - 1].id;
-      console.log(lastBookId + 1);
       BOOKS.push({
         ...book,
         id: lastBookId + 1,
       });
 
+      console.log(book);
       res.json(book);
     } catch (error) {
       next(error);
@@ -47,6 +47,7 @@ class BookController {
         BOOKS[idx] = newBookPayload;
       }
 
+      console.log(newBookPayload);
       res.json(newBookPayload);
     } catch (error) {
       next(error);
@@ -58,12 +59,8 @@ class BookController {
       const { id: bookId } = req.params;
       const idx = BOOKS.findIndex((book) => book.id === parseInt(bookId));
 
-      console.log('idx', idx);
-
       if (idx > -1) {
-        console.log('BOOKS BEFORE', BOOKS);
         BOOKS.splice(idx, 1);
-        console.log('BOOKS AFTER', BOOKS);
       }
       console.log("Book ID to delete:", bookId);
 
